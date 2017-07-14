@@ -5,9 +5,11 @@
  * Author: Rex
  */
 
+define('DEFAULT_PAGE_SIZE', 20);
+
 class Request {
-	public static $body;
-	public static $pager;
+	private static $body = null;
+	private static $pager = null;
 	public static function initialize() {
 		if ($_SERVER['REQUEST_METHOD'] != 'GET') {
 			self::$body = [];
@@ -25,14 +27,17 @@ class Request {
 		}
 		if (isset($_GET['_pn'])) {
 			self::$pager = [
-				'page' => intval($_GET['_pn']),
+				'pageNum' => intval($_GET['_pn']),
 				'pageSize' => DEFAULT_PAGE_SIZE
 			];
 			if (isset($_GET['_ps'])) {
 				self::$pager['pageSize'] = intval($_GET['_ps']);
 			}
 		} else {
-			self::$pager = null;
+			self::$pager = [
+				'pageNum' => null,
+				'pageSize' => null
+			];
 		}
 	}
 	public static function has($key) {
@@ -44,4 +49,12 @@ class Request {
 		}
 		return self::$body[$key];
 	}
+	public static function pageNum() {
+		return self::$pager['pageNum'];
+	}
+	public static function pageSize() {
+		return self::$pager['pageSize'];
+	}
 }
+
+Request::initialize();

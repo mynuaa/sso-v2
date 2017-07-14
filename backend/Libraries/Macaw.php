@@ -64,7 +64,6 @@ class Macaw {
         // Using an ANY option to match both GET and POST requests
         if (self::$methods[$route] == $method || self::$methods[$route] == 'ANY') {
           $found_route = true;
-
           // If route is not an object
           if (!is_object(self::$callbacks[$route])) {
 

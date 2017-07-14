@@ -5,7 +5,7 @@
  * Author: Rex
  */
 
-class Result {
+class Response {
 	public static $return;
 	public static function success($data = null) {
 		self::$return = ['status' => 0];
