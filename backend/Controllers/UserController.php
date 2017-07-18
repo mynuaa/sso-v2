@@ -10,7 +10,7 @@ class UserController {
             if (isset($user[$order])) {
                 $user = $user[$order];
                 $sid = createSid();
-                setcookie('sid', $sid, time() + 86400000, '/', $_SERVER['HTTP_HOST'], false, true);
+                setcookie('sid', $sid, time() + 86400000, '/', '', false, true);
                 $db->insert('user_tokens', [
                     'uid' => $user['uid'],
                     'sid' => $sid,

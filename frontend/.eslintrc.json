@@ -31,6 +31,10 @@
             "always"
         ]
     },
+    "globals": {
+        "iziToast": true,
+        "eventBus": true
+    },
     "validate": [
         "javascript",
         "javascriptreact",

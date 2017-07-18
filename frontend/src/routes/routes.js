@@ -1,11 +1,15 @@
-import Home from '../views/home.vue';
+import Layout from '../views/layout.vue';
 import Login from '../views/login.vue';
+import User from '../views/user.vue';
 
 export default [{
     path: '/',
-    component: Home,
+    component: Layout,
     children: [{
         path: '/login',
         component: Login,
+    }, {
+        path: '/user',
+        component: User,
     }]
 }];

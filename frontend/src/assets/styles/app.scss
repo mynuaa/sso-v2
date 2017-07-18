@@ -1,3 +1,8 @@
+@import '~vue-material/dist/vue-material.css';
+
+:-webkit-autofill {
+    box-shadow: inset 0 0 1000px #fff;
+}
 html,
 body {
     height: 100%;
@@ -7,4 +12,51 @@ body {
 body {
     background: url(assets/img/bg.png) no-repeat top center;
     background-size: cover;
+}
+body, input, button {
+    outline: none;
+    font-family: 'PingFang SC', 'Helvetica Neue', 'Hiragino Sans GB', 'Segoe UI', 'Microsoft YaHei UI', 微软雅黑, sans-serif;
+}
+div {
+    box-sizing: border-box;
+}
+#app,
+.layout {
+    height: 100%;
+}
+.iziToast-capsule {
+    text-align: center;
+}
+.iziToast {
+    float: left;
+    width: 100%;
+    min-height: 0;
+    font-family: inherit;
+    padding: 10px 30px;
+}
+.iziToast-body {
+    margin: 0 !important;
+    padding-left: 0 !important;
+}
+.rs-card {
+    padding: 20px;
+    border-radius: 4px;
+    background: #fff;
+    box-shadow: 1px 3px 5px rgba(0, 0, 0, 0.2);
+}
+.fullscreen-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.wrapper {
+    width: 100%;
+    margin: auto;
+}
+@media screen and (min-width: 600px) {
+    .wrapper {
+        width: 80%;
+        max-width: 640px;
+    }
 }

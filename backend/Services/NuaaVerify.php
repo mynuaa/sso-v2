@@ -32,7 +32,7 @@ class NuaaVerify {
         $success = strstr($response, 'switch (0){') != false;
         if ($success) {
             $db = new DataBase();
-            if (!$db->get('users', 'name', ['stu_num' => $stuid])) {
+            if (!$realname = $db->get('users', 'name', ['stu_num' => $stuid])) {
                 $url = 'http://ded.nuaa.edu.cn/netean/newpage/xsyh/title.asp';
                 curl_setopt_array($curl, [
                     CURLOPT_URL => $url,
