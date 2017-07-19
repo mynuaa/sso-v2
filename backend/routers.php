@@ -9,9 +9,12 @@ function addRouter($method, $route, $controller) {
     $segments = explode('@', $controller);
     $reflectionMethod = new ReflectionMethod($segments[0], $segments[1]);
     $depends = [];
-    foreach($reflectionMethod->getParameters() as $value) {
-        $class = $value->getType()->__toString();
-        $depends []= $class;
+    foreach ($reflectionMethod->getParameters() as $value) {
+        $type = $value->getType();
+        if ($type) {
+            $class = $type->__toString();
+            $depends []= $class;
+        }
     }
     $func = function () use ($segments, $depends) {
         foreach ($depends as &$value) {

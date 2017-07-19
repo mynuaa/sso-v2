@@ -79,7 +79,7 @@ class UserController {
         DataBase $db
     ) {
         $db->update('users', ['sid' => null], ['sid' => $_COOKIE['sid']]);
-        setcookie('sid', '', time() - 86400000, '/', $_SERVER['HTTP_HOST'], false, true);
+        setcookie('sid', '', time() - 86400000, '/', '', false, true);
     }
     public function current(CurrentUser $user) {
         Response::success($user);

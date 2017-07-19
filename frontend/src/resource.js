@@ -13,7 +13,7 @@ const handle = res => {
         });
         break;
     case 2:
-        router.history.push(data.url);
+        router.push(data.url);
         break;
     }
     return null;

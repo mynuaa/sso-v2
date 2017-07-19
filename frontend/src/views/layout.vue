@@ -15,8 +15,10 @@ export default {
     mounted() {
         const next = this.$route.query.next || '/user';
         eventBus.$on('userLogin', user => {
-            this.user = user;
-            this.$router.push(next);
+            if (user) {
+                this.user = user;
+                this.$router.push(next);
+            }
         });
         eventBus.$on('userLogout', () => {
             this.user = {};
