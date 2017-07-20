@@ -28,8 +28,8 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-      '/api': {
-        target: 'http://' + (process.env.HOST || 'test.my.nuaa.edu.cn') + '/sso-v2',
+      '/sso-v2/api': {
+        target: 'http://' + (process.env.HOST || 'test.my.nuaa.edu.cn'),
         changeOrigin: true
       },
       '/ucenter': {

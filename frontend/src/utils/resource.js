@@ -20,9 +20,9 @@ const handle = res => {
 };
 
 export default {
-    get: (url, config) => axios.get(url, config).then(handle),
-    post: (url, data, config) => axios.post(url, data, config).then(handle),
-    put: (url, data, config) => axios.put(url, data, config).then(handle),
-    patch: (url, data, config) => axios.patch(url, data, config).then(handle),
-    delete: (url, config) => axios.delete(url, config).then(handle)
+    get: (url, config) => axios.get(`/sso-v2${url}`, config).then(handle),
+    post: (url, data, config) => axios.post(`/sso-v2${url}`, data, config).then(handle),
+    put: (url, data, config) => axios.put(`/sso-v2${url}`, data, config).then(handle),
+    patch: (url, data, config) => axios.patch(`/sso-v2${url}`, data, config).then(handle),
+    delete: (url, config) => axios.delete(`/sso-v2${url}`, config).then(handle)
 };

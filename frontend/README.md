@@ -13,6 +13,24 @@ npm run build
 npm run build --report
 ```
 
+## Nginx 设置
+
+请将下面代码中的 `$my_root` 改为本机 `sso-v2` 项目所在的文件夹，然后将其插入到 conf 文件中。
+
+```nginx
+location /sso-v2 {
+    alias $my_root/sso-v2/frontend/dist/;
+    try_files $uri $uri/ /sso-v2/index.html;
+    location /sso-v2/api {
+        root $my_root;
+        try_files /sso-v2/backend/index.php =404;
+        fastcgi_pass 127.0.0.1:8000;
+        fastcgi_param SCRIPT_FILENAME $my_root/sso-v2/backend/index.php;
+        include fastcgi_params;
+    }
+}
+```
+
 ## Host 设置
 
 目前调试过程中 `/api` 和 `/ucenter` 默认的 Proxy 是指向 `test.my.nuaa.edu.cn` 的，若想修改（例如修改为 `localhost`），可设置环境变量后运行：

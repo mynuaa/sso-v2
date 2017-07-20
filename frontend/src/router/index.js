@@ -5,6 +5,7 @@ import routes from './routes';
 Vue.use(Router);
 
 const router = new Router({
+    base: '/sso-v2/',
     scrollBehavior: () => ({ x: 0, y: 0 }),
     routes,
     mode: 'history'
