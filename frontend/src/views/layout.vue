@@ -5,11 +5,13 @@
 </template>
 
 <script>
-import resource from '../resource';
+import navigation from 'utils/navigation';
+import resource from 'utils/resource';
 export default {
     data() {
         return {
-            user: {}
+            user: {},
+            unJumpedRoute: ['/login', '/complete']
         };
     },
     mounted() {
@@ -17,19 +19,18 @@ export default {
         eventBus.$on('userLogin', user => {
             if (user) {
                 this.user = user;
-                this.$router.push(next);
+                navigation.next();
             }
         });
         eventBus.$on('userLogout', () => {
             this.user = {};
-            this.$router.push(`/login?next=${next}`);
+            navigation.addNext(next).go('/login');
         });
-        // next page after login
         resource.get('/api/user/current').then(data => {
             if (data) {
                 eventBus.$emit('userLogin', data);
-            } else {
-                this.$router.push(`/login?next=${next}`);
+            } else if (!this.unJumpedRoute.find(item => this.$route.path.indexOf(item) === 0)) {
+                navigation.addNext(next).go('/login');
             }
         });
     }

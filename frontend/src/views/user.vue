@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import resource from '../resource';
+import resource from 'utils/resource';
 export default {
     data() {
         return {};
@@ -58,7 +58,7 @@ export default {
 };
 </script>
 
-<style lang="sass" scoped>
+<style scoped>
 header {
     height: 40px;
     line-height: 40px;
@@ -90,16 +90,16 @@ h1 {
     max-width: calc(100% - 80px);
     margin: auto;
     overflow: hidden;
-    .title {
-        width: 100%;
-        padding: 5px 0;
-        border-bottom: 1px solid #ddd;
-        margin: 15px 0;
-        clear: both;
-        &:first-child {
-            margin-top: 0;
-        }
-    }
+}
+.rs-card .title {
+    width: 100%;
+    padding: 5px 0;
+    border-bottom: 1px solid #ddd;
+    margin: 15px 0;
+    clear: both;
+}
+.rs-card .title:first-child {
+    margin-top: 0;
 }
 .avatar {
     float: left;

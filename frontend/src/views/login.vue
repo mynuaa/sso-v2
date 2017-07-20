@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import resource from '../resource';
+import resource from 'utils/resource';
 export default {
     data() {
         return {
@@ -72,7 +72,7 @@ export default {
 };
 </script>
 
-<style lang="sass" scoped>
+<style scoped>
 .logo {
     max-width: 100%;
     display: block;

@@ -1,44 +1,39 @@
 {
-    "parserOptions": {
-        "ecmaFeatures": {
-            "jsx": true,
-            "vue": true,
-            "experimentalObjectRestSpread": true
-        },
-        "sourceType": "module"
-    },
-    "env": {
-        "browser": true,
-        "node": true,
-        "es6": true
-    },
-    "extends": "eslint:recommended",
-    "rules": {
-        "indent": [
-            "error",
-            4
-        ],
-        "linebreak-style": [
-            "error",
-            "unix"
-        ],
-        "quotes": [
-            "error",
-            "single"
-        ],
-        "semi": [
-            "error",
-            "always"
-        ]
-    },
-    "globals": {
-        "iziToast": true,
-        "eventBus": true
-    },
-    "validate": [
-        "javascript",
-        "javascriptreact",
-        "vue",
-        "html"
-    ]
+  "root": true,
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true,
+      "vue": true,
+      "experimentalObjectRestSpread": true
+    }
+  },
+  "env": {
+    "browser": true,
+    "node": true,
+    "es6": true
+  },
+  "extends": "standard",
+  "plugins": [
+    "html"
+  ],
+  "rules": {
+    "arrow-parens": 0,
+    "generator-star-spacing": 0,
+    "indent": ["error", 4],
+    "linebreak-style": ["error", "unix"],
+    "quotes": ["error", "single"],
+    "semi": ["error", "always"],
+    "space-before-function-paren": ["error", {
+      "anonymous": "always",
+      "named": "never",
+      "asyncArrow": "always"
+    }]
+  },
+  "globals": {
+    "iziToast": true,
+    "eventBus": true
+  },
+  "validate": ["javascript", "vue", "html"]
 }

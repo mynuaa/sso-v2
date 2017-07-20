@@ -1,5 +1,5 @@
 import axios from 'axios';
-import router from './routes/index';
+import navigation from 'utils/navigation';
 
 const handle = res => {
     const data = res.data;
@@ -13,7 +13,7 @@ const handle = res => {
         });
         break;
     case 2:
-        router.push(data.url);
+        navigation.go(data.url);
         break;
     }
     return null;
