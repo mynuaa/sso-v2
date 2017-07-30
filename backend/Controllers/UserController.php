@@ -1,7 +1,7 @@
 <?php
 
 class UserController {
-    private function nuaaLogin($verify, $db, $username, $password) {
+    private static function nuaaLogin($verify, $db, $username, $password) {
         $split = preg_split('/(:|：)/', $username);
         $username = $split[0];
         $order = max([1, count($split) == 2 ? intval($split[1]) : 1]) - 1;
@@ -34,7 +34,7 @@ class UserController {
             Response::error('用户名或密码错误');
         }
     }
-    private function discuzLogin($db, $username, $password) {
+    private static function discuzLogin($db, $username, $password) {
         require_once __DIR__ . '/../UC_Client/client.php';
         list($uid, $dzUsername) = uc_user_login($username, $password);
         if ($uid <= 0) {
@@ -53,7 +53,7 @@ class UserController {
         }
         Response::success($user);
     }
-    public function login(
+    public static function login(
         DataBase $db,
         NuaaVerify $verify
     ) {
@@ -74,7 +74,7 @@ class UserController {
                 break;
         }
     }
-    public function logout(
+    public static function logout(
         CurrentUser $user,
         DataBase $db
     ) {
@@ -84,27 +84,32 @@ class UserController {
     public function current(CurrentUser $user) {
         Response::success($user);
     }
-    public function completeDiscuz(DataBase $db) {
+    public static function completeDiscuz(DataBase $db) {
         session_start();
         if ($_SESSION['confirm_need'] != 'discuz') {
             Response::error('用户信息已完整');
         }
-        print_r($_SESSION);
-        $user = $_SESSION['user'];
+        $confirm = $_SESSION['confirm'];
         $username = Request::get('username');
-        $password = $user['password'];
-        $stu_num = $user['stu_num'];
+        $password = Request::get('password');
+        $user =  [
+            'stu_num' => $confirm['stu_num'],
+            'username'=> $username,
+            'name' => $confirm['name']
+        ];
         // 若登录成功，则绑定已有账号
         require_once __DIR__ . '/../UC_Client/client.php';
-        list($uid, $username) = uc_user_login($username, $password);
+        list($uid, $t) = uc_user_login($username, $password);
         if ($uid > 0) {
             $ssoUser = $db->get('users', 'stu_num', ['uid' => $uid]);
             if ($ssoUser) {
                 Response::error('该账号已绑定学号：' . $ssoUser['stu_num']);
             } else {
-                $db->update('users', ['stu_num' => $stu_num], ['uid' =>  $uid]);
+                $user['uid'] = $uid;
+                // $db->update('users', ['stu_num' => $stu_num], ['uid' =>  $uid]);
+                $db->insert('users', $user);
                 session_destroy();
-                Response::jump('/user');
+                Response::success($user);
             }
         }
         // 否则，注册新账号
@@ -121,11 +126,14 @@ class UserController {
             ];
             Response::error($msg[$uid]);
         } else {
+            $user['uid'] = $uid;
+            $db->insert('users', $user);
             session_destroy();
-            Response::jump('/user');
+            Response::success($user);
+            // Response::jump('/user');
         }
     }
-    public function completeNuaa(
+    public static function completeNuaa(
         NuaaVerify $verify,
         DataBase $db
     ) {
@@ -133,8 +141,8 @@ class UserController {
         if ($_SESSION['confirm_need'] != 'nuaa') {
             Response::error('学号已认证');
         }
-        $user = $_SESSION['user'];
-        $stu_num = Request::get('stu_num');
+        $user = $_SESSION['confirm'];
+        $stu_num = Request::get('username');
         $password = Request::get('password');
         if ($realname = $verify->verify($stu_num, $password)) {
             $user['stu_num'] = $stu_num;
@@ -142,11 +150,12 @@ class UserController {
             $db->insert('users', [
                 'uid' => $user['uid'],
                 'username' => $user['username'],
-                'stu_num' => $user['stu_num'],
-                'name' => $user['name']
+                'stu_num' => $stu_num,
+                'name' => $realname
             ]);
             session_destroy();
-            Response::jump('/user');
+            Response::success($user);
+            // Response::jump('/user');
         } else {
             Response::success('认证失败');
         }

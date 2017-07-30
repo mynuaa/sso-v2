@@ -74,6 +74,7 @@ export default {
                 },
                 discuz: {
                     username: '',
+                    password: '',
                     email: ''
                 }
             },
@@ -82,11 +83,30 @@ export default {
     },
     methods: {
         submit(type) {
-            resource.post('/api/user/complete/discuz', {
-                type,
-                username: this.form[type].username,
-                email: this.form[type].email,
-            }).then(data => {
+            var completeUrl;
+            var info;
+            switch (type) {
+            case 'discuz':
+                completeUrl = '/api/user/complete/discuz';
+                info = {
+                    type: 'discuz',
+                    username: this.form['discuz'].username,
+                    email: this.form['discuz'].email,
+                    password: this.form['discuz'].password
+                };
+                break;
+            case 'nuaa':
+                completeUrl = '/api/user/complete/nuaa';
+                info = {
+                    type: 'nuaa',
+                    username: this.form['nuaa'].username,
+                    password: this.form['nuaa'].password
+                };
+                break;
+            default:
+                break;
+            }
+            resource.post(completeUrl, info).then(data => {
                 eventBus.$emit('userLogin', data);
             });
         }

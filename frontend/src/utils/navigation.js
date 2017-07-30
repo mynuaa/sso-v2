@@ -16,8 +16,9 @@ class Navigation {
     }
     next() {
         const stack = JSON.parse(localStorage.getItem(this.key) || '[]');
-        const next = stack.pop;
+        const next = stack.pop();
         localStorage.setItem(this.key, JSON.stringify(stack));
+        console.log(next);
         if (next) {
             router.push(next);
         } else {

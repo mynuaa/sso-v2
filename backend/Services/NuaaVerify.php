@@ -100,10 +100,16 @@ class NuaaVerify {
     public function verify($username, $password) {
         $username = urlencode($username);
         $password = urlencode($password);
-        return (
-            (preg_match("/(^7020|^LZ)/i", $username) && self::hrverify($username, $password)) ||
-            (preg_match("/(^SX|^SY|^SZ|^BX)/i", $username) && self::gsmverify($username, $password)) ||
-            self::dedverify($username, $password)
-        );
+        
+        if (preg_match("/(^7020|^LZ)/i", $username)) {
+            $result = self::hrverify($username, $password);
+        }
+        else if (preg_match("/(^SX|^SY|^SZ|^BX)/i", $username)) {
+            $result = self::gsmverify($username, $password);
+        }
+        else {
+            $result = self::dedverify($username, $password);
+        }
+        return $result;
     }
 }
