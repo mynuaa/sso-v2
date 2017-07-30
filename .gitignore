@@ -4,3 +4,4 @@ node_modules/
 dist/*.map
 npm-debug.log
 config.php
+package-lock.json
