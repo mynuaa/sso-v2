@@ -89,6 +89,7 @@ class UserController {
         if ($_SESSION['confirm_need'] != 'discuz') {
             Response::error('用户信息已完整');
         }
+        print_r($_SESSION);
         $user = $_SESSION['user'];
         $username = Request::get('username');
         $password = $user['password'];

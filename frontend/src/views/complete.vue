@@ -82,10 +82,10 @@ export default {
     },
     methods: {
         submit(type) {
-            resource.post('/api/user/login', {
+            resource.post('/api/user/complete/discuz', {
                 type,
                 username: this.form[type].username,
-                password: this.form[type].password
+                email: this.form[type].email,
             }).then(data => {
                 eventBus.$emit('userLogin', data);
             });
