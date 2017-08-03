@@ -29,6 +29,8 @@ return [
         'option' => [PDO::ATTR_CASE => PDO::CASE_NATURAL]
     ],
     'site' => [
-        'prefix' => '/sso-v2'
+        'prefix' => '/sso-v2',
+        'ded_host' => 'ded.nuaa.edu.cn',
+        'gsm_host' => 'gsmis.nuaa.edu.cn'
     ]
 ];
