@@ -1,58 +1,34 @@
-![apic](http://webtools.qiniudn.com/master-LOGO-20150410_50.jpg)  
+# 纸飞机同步登录系统后端
 
-# [PhalApi 2.0.0 - 助你创造价值！](https://www.phalapi.net/) 
+## 配置步骤
 
-[![Latest Stable Version](https://poser.pugx.org/phalapi/phalapi/v/stable)](https://packagist.org/packages/phalapi/phalapi)
-[![Total Downloads](https://poser.pugx.org/phalapi/phalapi/downloads)](https://packagist.org/packages/phalapi/phalapi)
-[![Latest Unstable Version](https://poser.pugx.org/phalapi/phalapi/v/unstable)](https://packagist.org/packages/phalapi/phalapi)
-[![License](https://poser.pugx.org/phalapi/phalapi/license)](https://packagist.org/packages/phalapi/phalapi)
+1. 修改 config.php（后续在 docker 中会省略）
+2. 导入 nginx 配置（后续在 docker 中会省略）：
 
-## 快速安装
-
-### composer一键安装
-
-使用composer创建项目的命令，可实现一键安装。
-
-```bash
-$ composer create-project phalapi/phalapi
-```
-> 温馨提示：关于composer的使用，请参考[Composer 中文网 / Packagist 中国全量镜像](http://www.phpcomposer.com/)。
-
-### 手动下载安装
-
-或者，也可以进行手动安装。将此Git项目代码下载解压后，进行可选的composer更新，即：  
-```bash
-$ composer update
-```
-
-### 访问接口服务
-
-随后，可通过以下链接，访问默认接口服务。  
-```
-http://localhost/path/to/phalapi/public/
-```
-可以看到类似这样的输出：  
-```
-{
-    "ret": 200,
-    "data": {
-        "title": "Hello PhalApi",
-        "version": "2.0.1",
-        "time": 1501079142
-    },
-    "msg": ""
+```nginx
+location /sso-v2 {
+    alias $my_root/sso-v2/frontend/dist/;
+    try_files $uri $uri/ /sso-v2/index.html;
+    location ~ /sso-v2/docs {
+        root $my_root/sso-v2/backend/public;
+        try_files /docs.php =404;
+        fastcgi_pass php:9000;
+        fastcgi_param SCRIPT_FILENAME $my_root/sso-v2/backend/public/docs.php;
+        include fastcgi_params;
+        fastcgi_param SCRIPT_NAME /sso-v2/api/;
+    }
+    location ~ /sso-v2/api {
+        rewrite ^/sso-v2/api/([^/]+?)/([^/]+?)$ /sso-v2/api/?s=$1.$2 last;
+        rewrite ^/sso-v2/api/([^/]+?)$ /sso-v2/api/?s=$1 last;
+        root $my_root/sso-v2/backend/public;
+        try_files /index.php =404;
+        fastcgi_pass php:9000;
+        fastcgi_param SCRIPT_FILENAME $my_root/sso-v2/backend/public/index.php;
+        include fastcgi_params;
+    }
 }
 ```
 
-运行效果，截图如下：  
+## 在线接口调试
 
-![](http://7xiz2f.com1.z0.glb.clouddn.com/20170726223129_eecf3d78826c5841020364c852c35156)
-
-
-> 温馨提示：推荐将访问根路径指向/path/to/phalapi/public。
-
-更多请见：[PhalApi 2.x 开发文档](http://docs.phalapi.net/#/v2.0/)  
-
-## 发现问题，怎么办？  
-
-如发现问题，或者任何问题，欢迎提交Issue到[这里](https://github.com/phalapi/phalapi/issues)。
+使用浏览器访问 `http://nginx/sso-v2/docs` 即可。

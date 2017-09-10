@@ -24,32 +24,32 @@ DROP TABLE IF EXISTS `user_tokens`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `user_tokens` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `uid` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
   `sid` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
   `expires` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `sid` (`sid`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `users`
+-- Table structure for table `user`
 --
 
-DROP TABLE IF EXISTS `users`;
+DROP TABLE IF EXISTS `user`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `users` (
-  `uid` int(11) NOT NULL,
+CREATE TABLE `user` (
+  `id` int(11) NOT NULL,
   `username` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
   `stu_num` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
   `openid` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `name` varchar(45) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  PRIMARY KEY (`uid`),
+  PRIMARY KEY (`id`),
   UNIQUE KEY `username_UNIQUE` (`username`),
   KEY `stu_num` (`stu_num`),
   KEY `openid` (`openid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='sso-v2 用户表。';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
