@@ -90,12 +90,12 @@ export default {
         if (!this.$route.query.redirect_uri) {
             console.error('"redirect_uri" param not found!');
         }
-        // TODO: get app info
         const appinfo = await resource.post('/api/oauth/appinfo', {
             appid: this.$route.params.appid
         });
         if (!appinfo) {
             console.error('no such app!');
+            return;
         }
         appinfo.permissions = parseInt(appinfo.permissions);
         this.appinfo = appinfo;
@@ -106,6 +106,10 @@ export default {
                 this.user.name = '未绑定学号';
             }
         } else {
+            iziToast.error({
+                title: 'Error',
+                message: '请先登录'
+            });
             navigation.addNext(`/oauth/${this.$route.params.appid}?redirect_uri=${this.$route.query.redirect_uri}`);
             navigation.go('/login?oauth=1');
         }

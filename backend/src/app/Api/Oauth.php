@@ -80,16 +80,9 @@ class Oauth extends Api {
 	 * 获取指定的应用信息
      * @desc 通过应用 ID 获取 app 的详细信息
 	 * @return string appid 应用
-     * @exception 401 用户未登录
      * @exception 404 应用不存在
 	 */
 	public function appinfo() {
-        $user = null;
-        if ($sid = DI()->cookie->get('sid')) {
-            $user = $this->duser->bySid($sid);
-        } else {
-            throw new BadRequestException(T('user_not_login'), 1);
-        }
         if ($t = $this->doauth_apps->getInfo($this->appid)) {
             $t['authorizers'] = $this->doauth_tokens->getAuthorizers($this->appid);
             return $t;
