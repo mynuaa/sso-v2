@@ -59,14 +59,17 @@ export default {
         };
     },
     methods: {
-        submit(type) {
-            resource.post('/api/user/login', {
+        async submit(type) {
+            const user = await resource.post('/api/user/login', {
                 type,
                 username: this.form[type].username,
                 password: this.form[type].password
-            }).then(data => {
-                eventBus.$emit('userLogin', data);
             });
+            if (user.stu_num === 'FRESHMAN') {
+                user.stu_num = '未绑定';
+                user.name = '未绑定学号';
+            }
+            this.eventBus.$emit('userLogin', user);
         }
     }
 };
@@ -87,7 +90,7 @@ export default {
     padding: 8px;
 }
 form {
-    width: 80%;
+    width: 90%;
     height: 180px;
     margin: auto;
     margin-top: 20px;

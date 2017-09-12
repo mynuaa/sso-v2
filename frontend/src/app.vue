@@ -15,6 +15,7 @@ body {
     height: 100%;
     margin: 0;
     padding: 0;
+    font-size: 13px;
 }
 body {
     background: url(assets/img/bg.png) no-repeat top center;
@@ -35,11 +36,9 @@ div {
     text-align: center;
 }
 .iziToast {
-    float: left;
-    width: 100%;
     min-height: 0;
     font-family: inherit;
-    padding: 10px 30px;
+    padding: 5px 40px 5px 20px;
 }
 .iziToast-body {
     margin: 0 !important;
@@ -58,10 +57,17 @@ div {
     transform: translate(-50%, -50%);
 }
 .wrapper {
-    width: 100%;
+    width: 95%;
     margin: auto;
 }
+.clear {
+    clear: both;
+}
 @media screen and (min-width: 600px) {
+    html,
+    body {
+        font-size: 14px;
+    }
     .wrapper {
         width: 80%;
         max-width: 640px;

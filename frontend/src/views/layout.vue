@@ -7,6 +7,7 @@
 <script>
 import navigation from 'utils/navigation';
 import resource from 'utils/resource';
+
 export default {
     data() {
         return {
@@ -14,27 +15,31 @@ export default {
             unJumpedRoute: /(\/login)|(\/complete\/.+)/
         };
     },
-    mounted() {
-        const next = this.$route.query.next || '/user';
-        navigation.addNext(next);
-        eventBus.$on('userLogin', user => {
+    async mounted() {
+        this.eventBus.$on('userLogin', user => {
             if (user) {
                 this.user = user;
                 navigation.next();
             }
         });
-        eventBus.$on('userLogout', () => {
+        this.eventBus.$on('userLogout', () => {
             this.user = {};
             navigation.go('/login');
         });
-        resource.get('/api/user/current').then(data => {
-            if (data) {
-                eventBus.$emit('userLogin', data);
+        if (!this.$route.query.oauth) {
+            const next = this.$route.query.next || '/user';
+            navigation.addNext(next);
+            const user = await resource.get('/api/user/current');
+            if (user) {
+                if (user.stu_num === 'FRESHMAN') {
+                    user.stu_num = '未绑定';
+                    user.name = '未绑定学号';
+                }
+                this.eventBus.$emit('userLogin', user);
             } else if (!this.unJumpedRoute.test(this.$route.path)) {
-                console.log('ok');
                 navigation.go('/login');
             }
-        });
+        }
     }
 };
 </script>

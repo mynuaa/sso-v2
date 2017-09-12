@@ -1,4 +1,5 @@
 import Layout from 'views/layout.vue';
+import Oauth from 'views/oauth.vue';
 import Login from 'views/login.vue';
 import User from 'views/user.vue';
 import Complete from 'views/complete.vue';
@@ -16,4 +17,8 @@ export default [{
         path: '/complete/:type',
         component: Complete
     }]
+}, {
+    path: '/oauth/:appid',
+    component: Oauth,
+    children: []
 }];

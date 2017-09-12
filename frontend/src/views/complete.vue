@@ -81,14 +81,13 @@ export default {
         };
     },
     methods: {
-        submit(type) {
-            resource.post('/api/user/login', {
+        async submit(type) {
+            const user = await resource.post('/api/user/login', {
                 type,
                 username: this.form[type].username,
                 password: this.form[type].password
-            }).then(data => {
-                eventBus.$emit('userLogin', data);
             });
+            this.eventBus.$emit('userLogin', user);
         }
     },
     mounted() {

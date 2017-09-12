@@ -18,18 +18,26 @@ Vue.material.registerTheme('default', {
 
 iziToast.settings({
     close: true,
-    timeout: 5000,
+    timeout: 4000,
     resetOnHover: true,
     icon: 'material-icons',
     transitionIn: 'fadeInDown',
     transitionOut: 'fadeOutUp',
-    position: /mobile/i.test(navigator.userAgent) ? 'bottomCenter' : 'topCenter'
+    transitionInMobile: 'fadeInDown',
+    transitionOutMobile: 'fadeOutUp',
+    position: 'topCenter'
 });
 
-window.eventBus = new Vue();
+Vue.prototype.eventBus = new Vue();
+
 window.moment = moment;
 
-new Vue({
-    router,
-    render: h => h(App)
-}).$mount('#app');
+if (window.top !== window) {
+    alert('检测到本系统被嵌入其它网站的页面，请立即离开。');
+} else {
+    new Vue({
+        router,
+        render: h => h(App)
+    }).$mount('#app');
+}
+

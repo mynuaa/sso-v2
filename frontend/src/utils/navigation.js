@@ -9,15 +9,15 @@ class Navigation {
         return this;
     }
     addNext(next) {
-        const stack = JSON.parse(localStorage.getItem(this.key) || '[]');
+        const stack = JSON.parse(sessionStorage.getItem(this.key) || '[]');
         stack.push(next);
-        localStorage.setItem(this.key, JSON.stringify(stack));
+        sessionStorage.setItem(this.key, JSON.stringify(stack));
         return this;
     }
     next() {
-        const stack = JSON.parse(localStorage.getItem(this.key) || '[]');
-        const next = stack.pop;
-        localStorage.setItem(this.key, JSON.stringify(stack));
+        const stack = JSON.parse(sessionStorage.getItem(this.key) || '[]');
+        const next = stack.pop();
+        sessionStorage.setItem(this.key, JSON.stringify(stack));
         if (next) {
             router.push(next);
         } else {
