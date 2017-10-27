@@ -30,7 +30,7 @@ class PhpUnderControl_ApiSite_Test extends \PHPUnit_Framework_TestCase
 
     /**
      * @group testGetRules
-     */ 
+     */
     public function testGetRules()
     {
         $rs = $this->site->getRules();
@@ -43,7 +43,7 @@ class PhpUnderControl_ApiSite_Test extends \PHPUnit_Framework_TestCase
         //Step 1. 构建请求URL
         $url = 'service=App.Site.Index&username=dogstar';
 
-        //Step 2. 执行请求	
+        //Step 2. 执行请求
         $rs = TestRunner::go($url);
 
         //Step 3. 验证

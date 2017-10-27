@@ -194,10 +194,10 @@ class User {
         return $user;
     }
     /**
-	 * 兼容 v1 的登录，返回新版的登录凭据
+     * 兼容 v1 的登录，返回新版的登录凭据
      * @param int uid 验证成功的用户ID
      * @return string sid 登录凭据
-	 */
+     */
     public function v1Login($uid) {
         return $this->setLogin($uid);
     }

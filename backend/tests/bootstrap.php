@@ -12,6 +12,5 @@ use PhalApi\Logger\ExplorerLogger;
 require_once dirname(__FILE__) . '/../public/init.php';
 
 //日记纪录 - Explorer
-\PhalApi\DI()->logger = new ExplorerLogger(
-	Logger::LOG_LEVEL_DEBUG | Logger::LOG_LEVEL_INFO | Logger::LOG_LEVEL_ERROR);
+\PhalApi\DI()->logger = new ExplorerLogger(Logger::LOG_LEVEL_DEBUG | Logger::LOG_LEVEL_INFO | Logger::LOG_LEVEL_ERROR);
 

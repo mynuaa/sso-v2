@@ -54,17 +54,17 @@ class User extends Api {
             ],
         ];
     }
-	/**
-	 * 获取当前用户信息
+    /**
+     * 获取当前用户信息
      * @desc 获取当前登录用户信息，若未登录则抛出异常
-	 * @return int id 用户标记
-	 * @return string username 用户名
-	 * @return string stu_num 学号/工号
-	 * @return string name 真实姓名
-	 * @return string openid 微信标记
+     * @return int id 用户标记
+     * @return string username 用户名
+     * @return string stu_num 学号/工号
+     * @return string name 真实姓名
+     * @return string openid 微信标记
      * @exception 401 用户未登录
-	 */
-	public function current() {
+     */
+    public function current() {
         if ($sid = DI()->cookie->get('sid')) {
             // 通过 sid 寻找用户
             return $this->duser->bySid($sid);
@@ -94,15 +94,15 @@ class User extends Api {
         }
     }
     /**
-	 * 用户登录
+     * 用户登录
      * @desc 使用教务处/论坛账号/微信登录，并返回用户信息
-	 * @return int id 用户标记，-1 为需要补全身份信息
-	 * @return string username 用户名
-	 * @return string stu_num 学号/工号
-	 * @return string name 真实姓名
-	 * @return string openid 微信标记
+     * @return int id 用户标记，-1 为需要补全身份信息
+     * @return string username 用户名
+     * @return string stu_num 学号/工号
+     * @return string name 真实姓名
+     * @return string openid 微信标记
      * @exception 401 用户名或密码错误
-	 */
+     */
     public function login() {
         switch ($this->type) {
             case 'nuaa':
@@ -124,9 +124,9 @@ class User extends Api {
         }
     }
     /**
-	 * 用户注销
+     * 用户注销
      * @desc 销毁 cookie 中的 sid，并让数据库中的凭据过期
-	 */
+     */
     public function logout() {
         // 需要同时注销 v1，否则会出现只要 v1 登录则 v2 无法注销的情况
         header('P3P: CP="CURa ADMa DEVa PSAo PSDo OUR BUS UNI PUR INT DEM STA PRE COM NAV OTC NOI DSP COR"');
@@ -137,9 +137,9 @@ class User extends Api {
         return null;
     }
     /**
-	 * 完善个人信息
+     * 完善个人信息
      * @desc 完善 nuaa/discuz 的信息
-	 */
+     */
     public function complete() {
         switch ($this->type) {
             case 'nuaa':

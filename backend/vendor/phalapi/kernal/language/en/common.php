@@ -17,11 +17,11 @@ return array(
     'Bad Request: {message}' => 'Bad Request: {message}',
     'Interal Server Error: {message}' => 'Interal Server Error: {message}',
     "{name}'s enum range can not be empty" => "{name}'s enum range can not be empty",
-	'DI()->filter should be instanceof PhalApi_Filter' => 'DI()->filter should be instanceof PhalApi_Filter',
+    'DI()->filter should be instanceof PhalApi_Filter' => 'DI()->filter should be instanceof PhalApi_Filter',
     'wrong sign' => 'wrong sign',
     'invalid type: {type} for rule: {name}' => 'invalid type: {type} for rule: {name}',
     'invalid callback for rule: {name}' => 'invalid callback for rule: {name}',
     'redis config key [socket] not found' => 'redis config key [socket] not found',
-	'{name} can not match {regex}'  => '{name} can not match {regex}',
+    '{name} can not match {regex}'  => '{name} can not match {regex}',
     'missing {name} extension' => 'missing {name} extension',
 );

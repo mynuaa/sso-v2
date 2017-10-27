@@ -76,13 +76,13 @@ class Oauth extends Api {
             ],
         ];
     }
-	/**
-	 * 获取指定的应用信息
+    /**
+     * 获取指定的应用信息
      * @desc 通过应用 ID 获取 app 的详细信息
-	 * @return string appid 应用
+     * @return string appid 应用
      * @exception 404 应用不存在
-	 */
-	public function appinfo() {
+     */
+    public function appinfo() {
         if ($t = $this->doauth_apps->getInfo($this->appid)) {
             $t['authorizers'] = $this->doauth_tokens->getAuthorizers($this->appid);
             return $t;
@@ -91,12 +91,12 @@ class Oauth extends Api {
         }
     }
     /**
-	 * 授权应用
+     * 授权应用
      * @desc 已登录的用户授权应用，返回 code
      * @return string code 用于换取访问凭证的标记
      * @exception 401 用户未登录
      * @exception 404 应用不存在
-	 */
+     */
     public function authorize() {
         $user = null;
         if ($sid = DI()->cookie->get('sid')) {
@@ -131,7 +131,7 @@ class Oauth extends Api {
         ];
     }
     /**
-	 * 刷新访问凭证
+     * 刷新访问凭证
      * @desc 访问凭证过期时刷新，第三方应用服务器专用
      * @return string access_token 新的访问凭证
      * @exception 401 APPID/APPSECRET/访问凭证错误
@@ -151,7 +151,7 @@ class Oauth extends Api {
         ];
     }
     /**
-	 * 获取用户信息
+     * 获取用户信息
      * @desc 类型用英文逗号分隔，第三方应用服务器专用
      * @return object user_info 用户信息，取决于传入的参数
      * @exception 401 访问凭证错误/请求的数据超出权限范围
