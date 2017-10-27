@@ -18,7 +18,7 @@ class SSO {
             self::$uid = $user['id'];
         } else if (isset($args['need_v1_compatible']) && $args['need_v1_compatible']) {
             // 加载旧证书
-            $prkey = openssl_pkey_get_private(file_get_contents($args['cert'] . '/private_key.pem'));
+            $prkey = openssl_pkey_get_private(file_get_contents($_ENV['MYNUAA_ROOT_PATH'] . '/sso/cert/private_key.pem'));
             // 旧的解密函数
             $ssoDecrypt = function ($str) use ($prkey) {
                 $encrypted = base64_decode($str);

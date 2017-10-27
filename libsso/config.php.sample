@@ -8,7 +8,6 @@ $GLOBALS['__CONFIG'] = [
         'pass' => 'root',
         'port' => 3306,
         'dbnm' => 'sso-v2',
-        'cert' => 'cert',
         'need_v1_compatible' => 0,
     ],
     'uc' => [

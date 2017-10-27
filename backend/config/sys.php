@@ -11,4 +11,5 @@ return [
     'crypt' => [
         'mcrypt_iv' => '',
     ],
+    'need_v1_compatible' => $mynuaa_config_all['need_v1_compatible'],
 ];

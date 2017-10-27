@@ -13,6 +13,22 @@ class User {
         $this->muser_tokens = new MUser_Tokens();
         $this->dnuaa_verify = new DNuaa_Verify();
     }
+    /**
+     * 使用户登录，并返回生成的登录凭据
+     * @param int userId 用户ID
+     * @return string sid 登录凭据
+     */
+    private function setLogin($userId) {
+        $sid = $this->muser_tokens->createSid();
+        $expires = time() + 86400000;
+        setcookie('sid', $sid, $expires, '/', '', false, true);
+        $this->muser_tokens->insert([
+            'user_id' => $userId,
+            'sid' => $sid,
+            'expires' => $expires,
+        ]);
+        return $sid;
+    }
     public function bySid($sid) {
         return $this->muser_tokens->bySid($sid);
     }
@@ -51,13 +67,7 @@ class User {
         // 正常登录
         $user = $users[$index];
         $user['realname'] = $realname;
-        $sid = $this->muser_tokens->createSid();
-        setcookie('sid', $sid, time() + 86400000, '/', '', false, true);
-        $this->muser_tokens->insert([
-            'user_id' => $user['id'],
-            'sid' => $sid,
-            'expires' => time() + 86400000,
-        ]);
+        $this->setLogin($user['id']);
         return $user;
     }
     public function discuzLogin($username, $password) {
@@ -82,13 +92,7 @@ class User {
             $_SESSION['confirm_need'] = 'nuaa';
             return 3;
         }
-        $sid = $this->muser_tokens->createSid();
-        setcookie('sid', $sid, time() + 86400000, '/', '', false, true);
-        $this->muser_tokens->insert([
-            'user_id' => $id,
-            'sid' => $sid,
-            'expires' => time() + 86400000,
-        ]);
+        $this->setLogin($id);
         return $user;
     }
     public function destroySid($sid = '') {
@@ -137,6 +141,7 @@ class User {
             $user['openid'] = $ssoUser['openid'] ? $ssoUser['openid'] : '';
             unset($user['password']);
             session_destroy();
+            $this->setLogin($id);
             return $user;
         } else if ($email != '') {
             // 注册新账号
@@ -185,6 +190,15 @@ class User {
             'name' => $user['name']
         ]);
         session_destroy();
+        $this->setLogin($user['id']);
         return $user;
+    }
+    /**
+	 * 兼容 v1 的登录，返回新版的登录凭据
+     * @param int uid 验证成功的用户ID
+     * @return string sid 登录凭据
+	 */
+    public function v1Login($uid) {
+        return $this->setLogin($uid);
     }
 }

@@ -66,8 +66,30 @@ class User extends Api {
 	 */
 	public function current() {
         if ($sid = DI()->cookie->get('sid')) {
+            // 通过 sid 寻找用户
             return $this->duser->bySid($sid);
+        } else if ($uid = DI()->cookie->get('myauth_uid')) {
+            // 需要兼容 v1 的 cookie
+            if (DI()->config->get('sys.need_v1_compatible')) {
+                // 加载旧证书
+                $prkey = openssl_pkey_get_private(file_get_contents($_ENV['MYNUAA_ROOT_PATH'] . '/sso/cert/private_key.pem'));
+                // 旧的解密函数
+                $ssoDecrypt = function ($str) use ($prkey) {
+                    $encrypted = base64_decode($str);
+                    if (!openssl_private_decrypt($encrypted, $str, $prkey)) return false;
+                    return $str;
+                };
+                // 旧的解密流程
+                if (isset($_COOKIE['myauth_uid'])) {
+                    if ($uid = $ssoDecrypt($_COOKIE['myauth_uid'])) {
+                        $uid = intval(json_decode($uid, true)['uid']);
+                        $sid = $this->duser->v1Login($uid);
+                        return $this->duser->bySid($sid);
+                    }
+                }
+            }
         } else {
+            // 判定用户未登录
             throw new BadRequestException(T('user_not_login'), 1);
         }
     }
@@ -106,6 +128,10 @@ class User extends Api {
      * @desc 销毁 cookie 中的 sid，并让数据库中的凭据过期
 	 */
     public function logout() {
+        // 需要同时注销 v1，否则会出现只要 v1 登录则 v2 无法注销的情况
+        header('P3P: CP="CURa ADMa DEVa PSAo PSDo OUR BUS UNI PUR INT DEM STA PRE COM NAV OTC NOI DSP COR"');
+        setcookie('myauth_uid', '', time() - 86400000, '/', '', false, true);
+        // v2 的注销
         $this->duser->destroySid(DI()->cookie->get('sid'));
         setcookie('sid', '', time() - 86400000, '/', '', false, true);
         return null;
