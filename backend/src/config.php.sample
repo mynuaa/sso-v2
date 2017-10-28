@@ -17,13 +17,14 @@ if (!defined('UC_CONNECT')) {
 }
 
 return [
+    'is_debug' => 1,
     'db_host' => 'localhost',
     'db_user' => 'root',
     'db_pass' => 'root',
     'db_name' => 'sso-v2',
     'db_port' => 3306,
     'db_charset' => 'utf8',
-    'mc_port' => 'mc',
+    'mc_host' => 'localhost',
     'mc_port' => 11211,
     'hosts' => [
         'ded' => 'ded.nuaa.edu.cn',
