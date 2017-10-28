@@ -1,0 +1,35 @@
+<?php
+
+if (!defined('UC_CONNECT')) {
+    define('UC_CONNECT', 'mysql');
+    define('UC_DBCONNECT', 0);
+    define('UC_DBHOST', 'localhost');
+    define('UC_DBUSER', 'root');
+    define('UC_DBPW', 'root');
+    define('UC_DBNAME', 'ucenter');
+    define('UC_DBCHARSET', 'utf8');
+    define('UC_DBTABLEPRE', 'ucenter.');
+    define('UC_KEY', '123456789');
+    define('UC_API', 'http://localhost/ucenter');
+    define('UC_CHARSET', 'utf8');
+    define('UC_IP', '');
+    define('UC_APPID', 1);
+}
+
+return [
+    'db_host' => 'localhost',
+    'db_user' => 'root',
+    'db_pass' => 'root',
+    'db_name' => 'sso-v2',
+    'db_port' => 3306,
+    'db_charset' => 'utf8',
+    'mc_port' => 'mc',
+    'mc_port' => 11211,
+    'hosts' => [
+        'ded' => 'ded.nuaa.edu.cn',
+        'gsm' => 'gsmis.nuaa.edu.cn',
+        'net' => 'net.nuaa.edu.cn',
+        'cce' => 'cce.nuaa.edu.cn',
+    ],
+    'need_v1_compatible' => 0,
+];
