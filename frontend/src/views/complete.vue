@@ -82,9 +82,10 @@ export default {
     },
     methods: {
         async submit(type) {
-            const user = await resource.post('/api/user/login', {
+            const user = await resource.post('/api/user/complete', {
                 type,
                 username: this.form[type].username,
+                email: this.form[type].email,
                 password: this.form[type].password
             });
             this.eventBus.$emit('userLogin', user);

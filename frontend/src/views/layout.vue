@@ -18,8 +18,12 @@ export default {
     async mounted() {
         this.eventBus.$on('userLogin', user => {
             if (user) {
-                this.user = user;
-                navigation.next();
+                if (user.id === -1) {
+                    navigation.go(`/complete/${user.needType}`);
+                } else {
+                    this.user = user;
+                    navigation.next();
+                }
             }
         });
         this.eventBus.$on('userLogout', () => {

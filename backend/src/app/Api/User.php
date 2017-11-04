@@ -109,14 +109,14 @@ class User extends Api {
                 switch ($t = $this->duser->nuaaLogin($this->username, $this->password)) {
                     case 1: throw new BadRequestException(T('subaccount_index_overflow'), 1);
                     case 2: throw new BadRequestException(T('wrong_username_password'), 1);
-                    case 3: return ['id' => -1];
+                    case 3: return ['id' => -1, 'needType' => 'discuz'];
                 }
                 return $t;
             case 'discuz':
                 switch ($t = $this->duser->discuzLogin($this->username, $this->password)) {
                     case 1: throw new BadRequestException(T('subaccount_index_overflow'), 1);
                     case 2: throw new BadRequestException(T('wrong_username_password'), 1);
-                    case 3: return ['id' => -1];
+                    case 3: return ['id' => -1, 'needType' => 'nuaa'];
                 }
                 return $t;
             case 'wechat':
