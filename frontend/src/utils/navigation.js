@@ -14,7 +14,7 @@ class Navigation {
         sessionStorage.setItem(this.key, JSON.stringify(stack));
         return this;
     }
-    next() {
+    next(defaultRoute) {
         const stack = JSON.parse(sessionStorage.getItem(this.key) || '[]');
         const next = stack.pop();
         sessionStorage.setItem(this.key, JSON.stringify(stack));
@@ -22,7 +22,7 @@ class Navigation {
             router.push(next);
         } else {
             console.warn('No "next" in navigation stack, check your code.');
-            router.push('/');
+            router.push(defaultRoute || '/user');
         }
         return this;
     }

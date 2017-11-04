@@ -22,7 +22,7 @@ export default {
                     navigation.go(`/complete/${user.needType}`);
                 } else {
                     this.user = user;
-                    navigation.next();
+                    navigation.next('/user');
                 }
             }
         });
