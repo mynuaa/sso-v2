@@ -20,7 +20,6 @@ iziToast.settings({
     close: true,
     timeout: 4000,
     resetOnHover: true,
-    icon: 'material-icons',
     transitionIn: 'fadeInDown',
     transitionOut: 'fadeOutUp',
     transitionInMobile: 'fadeInDown',

@@ -42,7 +42,6 @@ div {
 }
 .iziToast-body {
     margin: 0 !important;
-    padding-left: 0 !important;
 }
 .rs-card {
     padding: 20px;

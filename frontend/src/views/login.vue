@@ -65,7 +65,7 @@ export default {
                 username: this.form[type].username,
                 password: this.form[type].password
             });
-            if (user.stu_num === 'FRESHMAN') {
+            if (user && user.stu_num === 'FRESHMAN') {
                 user.stu_num = '未绑定';
                 user.name = '未绑定学号';
             }
