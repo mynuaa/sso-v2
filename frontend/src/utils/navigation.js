@@ -22,6 +22,7 @@ class Navigation {
             router.push(next);
         } else {
             console.warn('No "next" in navigation stack, check your code.');
+            router.push('/');
         }
         return this;
     }
