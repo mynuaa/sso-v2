@@ -4,32 +4,16 @@
 
 ```bash
 # 安装
-npm install
+yarn install
 # 运行
-npm run dev
+yarn run dev
 # 编译
-npm run build
-# 编译，带有报告输出
-npm run build --report
+yarn run build
 ```
 
 ## Nginx 设置
 
-请将下面代码中的 `$my_root` 改为本机 `sso-v2` 项目所在的文件夹，然后将其插入到 conf 文件中。
-
-```nginx
-location /sso-v2 {
-    alias $my_root/sso-v2/frontend/dist/;
-    try_files $uri $uri/ /sso-v2/index.html;
-    location /sso-v2/api {
-        root $my_root;
-        try_files /sso-v2/backend/index.php =404;
-        fastcgi_pass 127.0.0.1:8000;
-        fastcgi_param SCRIPT_FILENAME $my_root/sso-v2/backend/index.php;
-        include fastcgi_params;
-    }
-}
-```
+参考后端的配置。
 
 ## Host 设置
 
