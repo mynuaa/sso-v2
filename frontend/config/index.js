@@ -29,11 +29,11 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/sso-v2/api': {
-        target: 'http://' + (process.env.HOST || 'test.my.nuaa.edu.cn'),
+        target: 'http://' + (process.env.HOST || 'localhost'),
         changeOrigin: true
       },
       '/ucenter': {
-        target: 'http://' + (process.env.HOST || 'test.my.nuaa.edu.cn'),
+        target: 'http://' + (process.env.HOST || 'localhost'),
         changeOrigin: true
       }
     },
