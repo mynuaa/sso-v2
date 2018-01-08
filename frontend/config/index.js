@@ -35,6 +35,10 @@ module.exports = {
       '/ucenter': {
         target: 'http://' + (process.env.HOST || 'localhost'),
         changeOrigin: true
+      },
+      '/lib': {
+        target: 'http://my.nuaa.edu.cn',
+        changeOrigin: true
       }
     },
     // CSS Sourcemaps off by default because relative paths are "buggy"
